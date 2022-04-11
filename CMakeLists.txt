@@ -134,6 +134,8 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/plumbing_pub_sub_node.cpp)
+add_executable(demo01_pub src/demo01_pub.cpp)
+add_executable(demo02_sub src/demo02_sub.cpp)
 add_executable(demo03_pub_person src/demo03_pub_person.cpp)
 add_executable(demo04_sub_person src/demo04_sub_person.cpp)
 
@@ -146,6 +148,7 @@ add_executable(demo04_sub_person src/demo04_sub_person.cpp)
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+
 add_dependencies(demo03_pub_person  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 add_dependencies(demo04_sub_person  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
@@ -154,6 +157,14 @@ add_dependencies(demo04_sub_person  ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin
 # target_link_libraries(${PROJECT_NAME}_node
 #   ${catkin_LIBRARIES}
 # )
+
+target_link_libraries(demo01_pub
+  ${catkin_LIBRARIES}
+)
+
+target_link_libraries(demo02_sub
+  ${catkin_LIBRARIES}
+)
 
 target_link_libraries(demo03_pub_person
   ${catkin_LIBRARIES}
@@ -173,11 +184,9 @@ target_link_libraries(demo04_sub_person
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
+  scripts/demo01_pub_p.py
+  scripts/demo02_sub_p.py
   scripts/demo03_pub_person_p.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-)
-
-catkin_install_python(PROGRAMS
   scripts/demo04_sub_person_p.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
